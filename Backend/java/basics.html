@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Java Basics: Hierarchy, Code and Real-World Examples</title>
+<style>
+  :root { --bg:#fbfbf9; --fg:#1d2433; --muted:#5b6475; --line:#d9dce3; --accent:#b4440f; --card:#fff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171f; --fg:#e8eaf0; --muted:#9aa3b5; --line:#2c3242; --accent:#f0915a; --card:#1b1f2a; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width:980px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:2rem; margin:0 0 4px; }
+  .lead { color:var(--muted); margin:0 0 16px; max-width:65ch; }
+  .map { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:6px; padding:12px; }
+  .mermaid { min-width:680px; text-align:center; }
+  .mermaid .node, .mermaid .mindmap-node { cursor:help; }
+  .has-detail { cursor:pointer !important; filter:drop-shadow(0 0 2px rgba(0,0,0,.55)); }
+  .has-detail path, .has-detail rect, .has-detail circle, .has-detail polygon, .has-detail ellipse { stroke:#fff !important; stroke-width:4px !important; }
+  #panel { margin-top:16px; padding:14px 18px; border-left:3px solid var(--accent); background:var(--card); border-radius:0 6px 6px 0; scroll-margin-top:12px; }
+  #panel h2 { margin:0 0 4px; font:600 1.2rem system-ui, sans-serif; }
+  #panel h3 { margin:14px 0 4px; font:600 .9rem system-ui, sans-serif; color:var(--accent); }
+  #panel p { margin:0; }
+  #panel ol { margin:0; padding-left:20px; }
+  #panel pre { margin:0; padding:12px; overflow-x:auto; border:1px solid var(--line); border-radius:4px; background:var(--bg); font:13px/1.5 ui-monospace, Consolas, monospace; }
+  .muted { color:var(--muted); }
+  #tip { position:fixed; z-index:10; max-width:260px; padding:7px 11px; border-radius:6px; background:var(--fg); color:var(--bg); font:14px/1.4 system-ui, sans-serif; pointer-events:none; opacity:0; transition:opacity .12s; }
+  #tip.on { opacity:1; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Core Java basics</h1>
+  <p class="lead">Click any node with a thick white border to see an explanation, sample code, a real-world example and a step-by-step walkthrough below the map.</p>
+
+  <div class="map"><pre class="mermaid">
+mindmap
+  root((Java Basics))
+    JDK JRE JVM
+    Platform independence
+    Variables and types
+      Primitives
+      Wrappers
+      Autoboxing
+      Type casting
+    Operators
+      Arithmetic
+      Relational and logical
+      Ternary
+    Control flow
+      Conditions
+      Loops
+      Break and continue
+    Arrays
+      One dimensional
+      Two dimensional
+      Arrays class
+</pre></div>
+
+  <section id="panel" aria-live="polite"><p class="muted">Select a topic on the map.</p></section>
+</main>
+<div id="tip" role="tooltip"></div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  // [label, explanation, code, real-world example, step notes]
+  const T = [
+    ["JDK JRE JVM","The JVM runs bytecode. The JRE is the JVM plus the libraries needed to run programs. The JDK is the JRE plus the compiler and tools needed to build them.",
+`// Hello.java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
+}
+// javac Hello.java  -> Hello.class (bytecode, JDK tool)
+// java Hello        -> the JVM runs it`,
+     "A film: the JDK is the studio with cameras and editing, the JRE is the cinema hall, and the JVM is the projector that plays the film.",
+     ["javac compiles your source into a .class file of bytecode.","The java command starts a JVM that loads and runs the .class file.","Users who only run apps need the JRE; developers need the JDK."]],
+    ["Platform independence","Java compiles to bytecode, not machine code. Each operating system has its own JVM that runs the same bytecode: write once, run anywhere.",
+`// The same Hello.class runs unchanged on:
+//   Windows JVM -> Windows machine code
+//   Linux JVM   -> Linux machine code
+//   macOS JVM   -> macOS machine code
+System.out.println(System.getProperty("os.name"));`,
+     "A PDF opens the same on any device because each device has its own PDF reader. Bytecode is the PDF and the JVM is the reader.",
+     ["Compile once to bytecode.","Each platform's JVM translates it to native instructions at runtime (JIT).","Only the JVM is platform-specific. Your code is not."]],
+    ["Primitives","Eight built-in types stored by value: byte, short, int, long, float, double, char and boolean.",
+`byte small = 100;                 // 8 bit
+int count = 1_000_000;            // 32 bit
+long views = 5_000_000_000L;      // 64 bit, needs L
+double price = 19.99;             // 64 bit decimal
+char grade = 'A';
+boolean paid = true;`,
+     "A shop record: quantity is an int, price a double, grade a char, paid a boolean. A video's view count needs long, because int would overflow.",
+     ["Whole-number literals are int, so a big value needs the L suffix.","double is the default decimal; money should use BigDecimal.","Underscores in numbers only help readability."]],
+    ["Wrappers","Object versions of primitives (Integer, Double, Boolean and so on). Needed for collections, null values and helper methods.",
+`Integer a = Integer.valueOf(42);
+int n = Integer.parseInt("123");   // text to number
+String s = Integer.toString(7);
+System.out.println(Integer.MAX_VALUE); // 2147483647
+List<Integer> ids = new ArrayList<>(); // generics need objects`,
+     "An optional age field on a form: when the user skips it the value is null, which a plain int cannot represent.",
+     ["valueOf wraps a primitive into an object.","parseInt converts text from a form or file into a number.","Generics accept only objects, which is why wrappers exist."]],
+    ["Autoboxing","Java converts automatically between a primitive and its wrapper. Unboxing a null throws NullPointerException.",
+`List<Integer> list = new ArrayList<>();
+list.add(5);            // boxing: int -> Integer
+int x = list.get(0);    // unboxing: Integer -> int
+Integer missing = null;
+// int y = missing;     // NullPointerException`,
+     "A currency counter that swaps notes for coins automatically, but errors out if you hand over nothing at all.",
+     ["add(5) boxes the int into an Integer.","get(0) unboxes it back to an int.","Unboxing a null reference crashes, so check for null first."]],
+    ["Type casting","Widening (small to large) is automatic. Narrowing (large to small) needs an explicit cast and can lose data.",
+`int i = 10;
+double d = i;               // widening, automatic
+double price = 99.99;
+int rounded = (int) price;  // narrowing: 99, decimals dropped
+byte b = (byte) 130;        // overflow: -126`,
+     "Pouring a small cup into a big jug is safe. Pouring a jug into a small cup spills.",
+     ["int to double fits, so no cast is needed.","(int) cuts off the decimals, it does not round.","Values outside the target range wrap around."]],
+    ["Arithmetic","+, -, *, /, % and the shortcuts +=, ++ and --. Dividing two ints gives an int.",
+`int a = 7, b = 2;
+System.out.println(a / b);          // 3 (integer division)
+System.out.println(a % b);          // 1 (remainder)
+System.out.println((double) a / b); // 3.5
+a += 3;  // a = a + 3 -> 10
+a++;     // 11`,
+     "Splitting a restaurant bill: / gives each person's share and % tells you the leftover rupees.",
+     ["7 / 2 drops the fraction because both are ints.","% returns what is left after dividing.","Cast one side to double to keep the decimals."]],
+    ["Relational and logical","Comparisons (==, !=, <, >, <=, >=) produce booleans. Combine them with && (and), || (or) and ! (not).",
+`int age = 20;
+boolean member = true;
+if (age >= 18 && member) System.out.println("Allowed");
+if (age < 18 || !member) System.out.println("Blocked");
+String note = null;
+if (note != null && note.length() > 0) { /* safe */ }`,
+     "Cinema entry: you need to be 18 or older AND hold a valid ticket. Failing either condition blocks you.",
+     ["&& is true only if both sides are true.","|| is true if at least one side is true.","&& short-circuits: if note is null, the length call never runs."]],
+    ["Ternary","A one-line if-else that returns a value: condition ? valueIfTrue : valueIfFalse.",
+`int marks = 72;
+String result = marks >= 40 ? "Pass" : "Fail";
+System.out.println(result); // Pass`,
+     "A traffic signal: if the light is green you go, otherwise you stop.",
+     ["The condition is checked first.","One of the two values is picked and assigned.","Keep it simple; nest them and it becomes hard to read."]],
+    ["Conditions","if, else if and else choose between paths. switch picks a branch by value, and the arrow form needs no break.",
+`int day = 3;
+if (day == 6 || day == 7) {
+    System.out.println("Weekend");
+} else {
+    System.out.println("Weekday");
+}
+String name = switch (day) {
+    case 1 -> "Mon";
+    case 2 -> "Tue";
+    case 3 -> "Wed";
+    default -> "Other";
+};`,
+     "An ATM menu: press 1 for balance, 2 for withdrawal, 3 for exit. switch maps the key you press to an action.",
+     ["The if-else decides weekend or weekday.","switch with arrows returns a value directly.","default handles any choice you did not list."]],
+    ["Loops","for repeats a known number of times, while repeats until a condition fails, and do-while always runs at least once.",
+`for (int i = 1; i <= 3; i++) {
+    System.out.println("Attempt " + i);
+}
+int tries = 0;
+while (tries < 3) tries++;
+do {
+    tries--;
+} while (tries > 0);`,
+     "Retry a failed payment up to 3 times (for), read lines until the file ends (while), show a menu at least once (do-while).",
+     ["for has init, condition and update in one line.","while checks first, so it may never run.","do-while checks last, so the body runs once even if false."]],
+    ["Break and continue","break leaves the loop completely. continue skips the rest of this round and moves to the next.",
+`for (int i = 1; i <= 5; i++) {
+    if (i == 2) continue;   // skip 2
+    if (i == 4) break;      // stop at 4
+    System.out.println(i);  // prints 1 then 3
+}`,
+     "Airport bag scanning: skip a bag that is already cleared (continue) and stop the whole line when a threat is found (break).",
+     ["i == 2 skips only that round.","i == 4 ends the loop immediately.","Only 1 and 3 are printed."]],
+    ["One dimensional","A fixed-size row of same-type elements. Indexes start at 0 and length never changes.",
+`int[] marks = {90, 75, 60};
+System.out.println(marks.length); // 3
+System.out.println(marks[0]);     // 90
+int total = 0;
+for (int m : marks) total += m;
+System.out.println(total);        // 225`,
+     "A row of numbered lockers: the count is fixed and each is opened by its number, like a class's exam marks.",
+     ["The literal creates an array of 3 ints.","Valid indexes are 0 to length-1; marks[3] would throw.","The enhanced for loop adds each value to the total."]],
+    ["Two dimensional","An array of arrays for tables and grids. The first index is the row, the second the column.",
+`int[][] seats = new int[3][4];  // 3 rows, 4 columns
+seats[1][2] = 1;                // book row 1, seat 2
+for (int[] row : seats) {
+    System.out.println(Arrays.toString(row));
+}`,
+     "A cinema seating chart where 1 means booked and 0 means free.",
+     ["new int[3][4] makes 3 rows of 4 seats.","seats[1][2] picks one seat.","The loop prints one row at a time."]],
+    ["Arrays class","java.util.Arrays has ready-made helpers to sort, search, copy, fill and print arrays.",
+`int[] a = {5, 2, 9, 1};
+Arrays.sort(a);
+System.out.println(Arrays.toString(a));        // [1, 2, 5, 9]
+System.out.println(Arrays.binarySearch(a, 5)); // 2
+int[] copy = Arrays.copyOf(a, 6);              // [1, 2, 5, 9, 0, 0]`,
+     "A toolbox beside your array: instead of writing loops yourself you grab a ready-made tool, such as sorting scores for a ranking.",
+     ["sort rearranges the array in place.","binarySearch needs a sorted array and returns the index.","copyOf makes a new array, padding with zeros."]]
+  ];
+  const data = Object.fromEntries(T.map(([l, t, c, w, n]) => [l, { t, c, w, n }]));
+
+  mermaid.initialize({ startOnLoad: false, theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default' });
+  const sel = '.node, .mindmap-node';
+  const label = n => n.textContent.replace(/\s+/g, ' ').trim();
+  await mermaid.run({ querySelector: '.mermaid' });
+  document.querySelectorAll(sel).forEach(n => { if (data[label(n)]) n.classList.add('has-detail'); });
+
+  const panel = document.getElementById('panel'), tip = document.getElementById('tip');
+  const el = (tag, text, parent) => { const e = document.createElement(tag); e.textContent = text; parent.appendChild(e); return e; };
+  const open = d => {
+    panel.replaceChildren();
+    el('h2', d.name, panel); el('p', d.t, panel);
+    el('h3', 'Sample code', panel); el('pre', d.c, panel);
+    el('h3', 'Real-world example', panel); el('p', d.w, panel);
+    el('h3', 'Step by step', panel);
+    const ol = el('ol', '', panel); d.n.forEach(s => el('li', s, ol));
+    panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+  document.addEventListener('click', e => {
+    const n = e.target.closest && e.target.closest(sel);
+    const d = n && data[label(n)];
+    if (d) open({ ...d, name: label(n) });
+  });
+  document.addEventListener('mouseover', e => {
+    const n = e.target.closest && e.target.closest(sel), d = n && data[label(n)];
+    if (!d) { tip.classList.remove('on'); return; }
+    tip.textContent = 'Click for code and a real-world example';
+    tip.classList.add('on');
+  });
+  document.addEventListener('mousemove', e => {
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + 'px';
+    tip.style.top = e.clientY + 18 + 'px';
+  });
+</script>
+</body>
+</html>
