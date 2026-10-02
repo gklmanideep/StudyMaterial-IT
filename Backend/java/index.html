@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java Interview Topics: Hierarchy Map</title>
+<style>
+  :root { --bg:#fbfbf9; --fg:#1d2433; --muted:#5b6475; --line:#d9dce3; --accent:#b4440f; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171f; --fg:#e8eaf0; --muted:#9aa3b5; --line:#2c3242; --accent:#f0915a; --card:#1b1f2a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 Georgia, "Times New Roman", serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 20px; max-width: 65ch; }
+  nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  nav a { color:var(--fg); border:1px solid var(--line); padding:4px 10px; border-radius:4px; text-decoration:none; font:14px system-ui, sans-serif; }
+  nav a:hover, nav a:focus-visible { border-color:var(--accent); color:var(--accent); outline:none; }
+  details { background:var(--card); border:1px solid var(--line); border-radius:6px; margin:12px 0; }
+  summary { cursor:pointer; padding:12px 16px; font:600 1.05rem system-ui, sans-serif; }
+  summary:focus-visible { outline:2px solid var(--accent); }
+  .box { overflow-x:auto; padding:8px 12px 16px; }
+  .mermaid { min-width: 640px; text-align:center; }
+  @media print { details:not([open]) > .box { display:block; } }
+  .mermaid .node, .mermaid .mindmap-node { cursor: help; }
+  #tip { position:fixed; z-index:10; max-width:280px; padding:8px 12px; border-radius:6px; background:var(--fg); color:var(--bg); font:14px/1.45 system-ui, sans-serif; pointer-events:none; opacity:0; transition:opacity .12s; }
+  #tip.on { opacity:1; }
+  #tip b { display:block; margin-bottom:2px; }
+  .ex { margin-top:12px; padding:12px 16px; border-left:3px solid var(--accent); background:var(--bg); text-align:left; }
+  .ex h3 { margin:0 0 4px; font:600 1rem system-ui, sans-serif; }
+  .ex p { margin:0 0 8px; color:var(--muted); }
+  .ex pre { margin:0; padding:12px; overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:4px; font:13px/1.5 ui-monospace, Consolas, monospace; }
+  .ex h4 { margin:12px 0 4px; font:600 .9rem system-ui, sans-serif; color:var(--accent); }
+  .ex ol { margin:0; padding-left:20px; }
+  .ex li { margin:2px 0; }
+  .has-detail { cursor:pointer; filter: drop-shadow(0 0 2px rgba(0,0,0,.55)); }
+  .has-detail path, .has-detail rect, .has-detail circle, .has-detail polygon, .has-detail ellipse { stroke:#fff !important; stroke-width:4px !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Java interview topics</h1>
+  <p class="lead">Ten areas, one map each. Open a section and scan the branches. Nodes with a thick white border have a code example: click them.</p>
+
+  <nav aria-label="Sections">
+    <a href="#overview">Overview</a><a href="#core">Core</a><a href="#oop">OOP</a><a href="#coll">Collections</a>
+    <a href="#conc">Concurrency</a><a href="#j8">Java 8+</a><a href="#jvm">JVM</a><a href="#exc">Exceptions, IO</a>
+    <a href="#db">JDBC, Hibernate</a><a href="#spring">Spring</a><a href="#design">Design, Tools</a>
+  </nav>
+
+  <details id="overview" open><summary>Overview: all topics</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Java Interview))
+    Core Java
+    OOP
+    Collections
+    Concurrency
+    Java 8 plus
+    JVM and Memory
+    Exceptions and IO
+    JDBC and Hibernate
+    Spring
+    Design and Tools
+</pre></div></details>
+
+  <details id="core"><summary>1. Core Java</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Core Java))
+    Basics
+      JDK vs JRE vs JVM
+      Platform independence
+      Data types
+        Primitives
+        Wrappers
+        Autoboxing
+      Operators
+      Control flow
+      Arrays
+    Keywords
+      static
+      final
+      this and super
+      transient
+      volatile
+      abstract
+    Strings
+      Immutability
+      String pool
+      StringBuilder
+      StringBuffer
+      equals vs ==
+    Methods
+      Overloading
+      Varargs
+      Pass by value
+      Constructors
+    Packages
+      Access modifiers
+      Imports
+      Modules
+</pre></div></details>
+
+  <details id="oop"><summary>2. Object-Oriented Programming</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((OOP))
+    Four pillars
+      Encapsulation
+      Inheritance
+      Polymorphism
+        Compile time
+        Runtime
+      Abstraction
+    Classes
+      Abstract class
+      Interface
+        Default methods
+        Static methods
+      Inner classes
+        Static nested
+        Anonymous
+      Enum
+      Record
+      Sealed classes
+    Object class
+      equals
+      hashCode
+      toString
+      clone
+        Shallow copy
+        Deep copy
+    Relationships
+      Is-a
+      Has-a
+      Composition
+      Aggregation
+    Overriding
+      Rules
+      Covariant return
+      super calls
+</pre></div></details>
+
+  <details id="coll"><summary>3. Collections Framework</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Collections))
+    List
+      ArrayList
+      LinkedList
+      Vector
+      Stack
+    Set
+      HashSet
+      LinkedHashSet
+      TreeSet
+    Queue
+      PriorityQueue
+      ArrayDeque
+      BlockingQueue
+    Map
+      HashMap
+        Hashing
+        Collisions
+        Treeification
+        Resize
+      LinkedHashMap
+      TreeMap
+      Hashtable
+      ConcurrentHashMap
+      WeakHashMap
+    Utilities
+      Collections class
+      Arrays class
+      Comparable
+      Comparator
+    Behaviour
+      Fail-fast iterators
+      Fail-safe iterators
+      Time complexity
+      Generics
+        Wildcards
+        Type erasure
+</pre></div></details>
+
+  <details id="conc"><summary>4. Multithreading and Concurrency</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Concurrency))
+    Thread basics
+      Thread vs Runnable
+      Lifecycle
+      Daemon threads
+      join and sleep
+      wait notify
+      Virtual threads
+    Synchronization
+      synchronized
+      volatile
+      Locks
+        ReentrantLock
+        ReadWriteLock
+        StampedLock
+      Deadlock
+      Livelock
+      Starvation
+    Java Memory Model
+      Happens-before
+      Visibility
+      Atomicity
+    Executors
+      ExecutorService
+      ThreadPool types
+      ScheduledExecutor
+      ForkJoinPool
+    Futures
+      Callable
+      Future
+      CompletableFuture
+    Utilities
+      CountDownLatch
+      CyclicBarrier
+      Semaphore
+      Atomic classes
+      ThreadLocal
+</pre></div></details>
+
+  <details id="j8"><summary>5. Java 8 and later</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Java 8 plus))
+    Java 8
+      Lambdas
+      Functional interfaces
+        Predicate
+        Function
+        Consumer
+        Supplier
+      Method references
+      Streams
+        Intermediate ops
+        Terminal ops
+        Parallel streams
+        Collectors
+      Optional
+      Date Time API
+      Default methods
+    Java 9 to 11
+      Modules
+      var
+      List.of
+      HTTP Client
+    Java 12 to 17
+      Switch expressions
+      Text blocks
+      Records
+      Pattern matching
+      Sealed classes
+    Java 21
+      Virtual threads
+      Record patterns
+      Sequenced collections
+</pre></div></details>
+
+  <details id="jvm"><summary>6. JVM, Memory and GC</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((JVM))
+    Architecture
+      Class loader
+        Bootstrap
+        Platform
+        Application
+      Runtime data areas
+      Execution engine
+        Interpreter
+        JIT compiler
+    Memory
+      Heap
+        Young gen
+        Old gen
+      Metaspace
+      Stack
+      PC register
+    Garbage collection
+      Mark and sweep
+      Generational GC
+      Collectors
+        Serial
+        Parallel
+        G1
+        ZGC
+    Issues
+      OutOfMemoryError
+      StackOverflowError
+      Memory leaks
+      References
+        Strong
+        Soft
+        Weak
+        Phantom
+    Tuning
+      JVM flags
+      Profiling tools
+</pre></div></details>
+
+  <details id="exc"><summary>7. Exceptions, IO and Misc APIs</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Exceptions and IO))
+    Exceptions
+      Throwable class
+      Checked exceptions
+      Unchecked exceptions
+      Error class
+      try-catch-finally
+      try-with-resources
+      Custom exceptions
+    IO
+      Byte streams
+      Character streams
+      Buffered IO
+      NIO
+        Channels
+        Buffers
+        Path and Files
+      Serialization
+        Serializable
+        serialVersionUID
+        Externalizable
+    Other APIs
+      Reflection
+      Annotations
+      Regex
+      Immutability
+</pre></div></details>
+
+  <details id="db"><summary>8. JDBC, SQL and Hibernate</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Data access))
+    JDBC
+      Driver types
+      Connection
+      Statement
+      PreparedStatement
+      ResultSet
+      Transactions
+      Connection pooling
+    SQL
+      Joins
+      Indexes
+      Normalization
+      ACID
+      Isolation levels
+    Hibernate and JPA
+      Entities
+      Mappings
+        OneToOne
+        OneToMany
+        ManyToMany
+      Fetch types
+      Caching
+        First level
+        Second level
+      HQL and JPQL
+      N plus 1 problem
+      Lazy loading
+</pre></div></details>
+
+  <details id="spring"><summary>9. Spring and Spring Boot</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Spring))
+    Core
+      IoC
+      Dependency injection
+        Constructor
+        Setter
+      Bean scopes
+      Bean lifecycle
+      ApplicationContext
+      AOP
+    Spring Boot
+      Auto-configuration
+      Starters
+      application properties
+      Actuator
+      Profiles
+    Web
+      Spring MVC
+      REST controllers
+      Validation
+      Exception handling
+      Filters and interceptors
+    Data
+      Spring Data JPA
+      Transactions
+    Security
+      Authentication
+      Authorization
+      JWT
+      OAuth2
+    Microservices
+      API gateway
+      Service discovery
+      Circuit breaker
+      Messaging with Kafka
+</pre></div></details>
+
+  <details id="design"><summary>10. Design, Testing and Tools</summary><div class="box"><pre class="mermaid">
+mindmap
+  root((Design and Tools))
+    Design patterns
+      Creational
+        Singleton
+        Factory
+        Builder
+      Structural
+        Adapter
+        Decorator
+        Proxy
+      Behavioral
+        Observer
+        Strategy
+        Template method
+    Principles
+      SOLID
+      DRY
+      KISS
+      Clean code
+    Testing
+      JUnit
+      Mockito
+      TDD
+      Integration tests
+    Tools
+      Maven
+      Gradle
+      Git
+      Docker
+      CI and CD
+    DSA practice
+      Arrays and Strings
+      Linked lists
+      Trees and Graphs
+      Sorting and Searching
+      Dynamic programming
+</pre></div></details>
+</main>
+
+<div id="tip" role="tooltip"></div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default', securityLevel: 'loose' });
+  // Render collapsed sections only when opened, so hidden diagrams size correctly.
+  const render = d => {
+    const els = d.querySelectorAll('pre.mermaid:not([data-processed])');
+    if (els.length) mermaid.run({ nodes: els, suppressErrors: true }).then(() => mark(d)).catch(e => console.error(e));
+  };
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => d.open && render(d));
+    if (d.open) render(d);
+  });
+  const open = () => { const t = document.querySelector(location.hash || 'x'); if (t && t.tagName === 'DETAILS') { t.open = true; render(t); } };
+  window.addEventListener('hashchange', open); open();
+
+  // Hover descriptions: D[sectionId][label]; falls back to the overview entry.
+  const D = {
+    overview: {
+      "Java Interview":"Map of everything an interviewer may ask, from language basics to frameworks. Hover any branch for a summary.",
+      "Core Java":"Language fundamentals: types, keywords, strings, methods and packages. Most interviews start here.",
+      "OOP":"Encapsulation, inheritance, polymorphism and abstraction, and how Java expresses them with classes and interfaces.",
+      "Collections":"Data structures in java.util: List, Set, Queue and Map, and how they behave and perform.",
+      "Concurrency":"Running code on several threads safely: locks, executors, futures and the memory model.",
+      "Java 8 plus":"Modern features: lambdas, streams, Optional, records, pattern matching and virtual threads.",
+      "JVM and Memory":"How Java runs: class loading, heap and stack, JIT compilation and garbage collection.",
+      "Exceptions and IO":"Error handling, file and stream IO, serialization, reflection and annotations.",
+      "JDBC and Hibernate":"Database access from Java: raw JDBC, SQL knowledge and ORM with Hibernate or JPA.",
+      "Spring":"The dominant framework: dependency injection, Spring Boot, REST, data, security and microservices.",
+      "Design and Tools":"Design patterns, SOLID, testing, build tools and data structure practice."
+    },
+    core: {
+      "Basics":"JDK, JRE and JVM roles, primitives and wrappers, operators, control flow and arrays.",
+      "Keywords":"What static, final, this, super, transient, volatile and abstract mean and when to use them.",
+      "Strings":"Immutable objects kept in a string pool. Know StringBuilder vs StringBuffer and equals vs ==.",
+      "Methods":"Overloading, varargs, Java being pass-by-value, and constructors.",
+      "Packages":"Organising code and controlling visibility with access modifiers, imports and modules."
+    },
+    oop: {
+      "Four pillars":"Encapsulation, inheritance, polymorphism (compile time and runtime) and abstraction.",
+      "Classes":"Abstract classes, interfaces, inner classes, enums, records and sealed classes.",
+      "Object class":"Root of all classes: equals, hashCode, toString and clone, with the equals-hashCode contract.",
+      "Relationships":"Is-a (inheritance) vs has-a (composition and aggregation).",
+      "Overriding":"Rules for overriding methods, covariant return types and calling super."
+    },
+    coll: {
+      "List":"Ordered, index-based, allows duplicates: ArrayList, LinkedList, Vector, Stack.",
+      "Set":"No duplicates: HashSet (unordered), LinkedHashSet (insertion order), TreeSet (sorted).",
+      "Queue":"FIFO and priority structures: PriorityQueue, ArrayDeque, BlockingQueue.",
+      "Map":"Key-value pairs. HashMap internals (hashing, collisions, resize) are a favourite question.",
+      "Utilities":"Helpers and sorting: Collections, Arrays, Comparable and Comparator.",
+      "Behaviour":"Fail-fast vs fail-safe iterators, time complexity and generics (wildcards, type erasure)."
+    },
+    conc: {
+      "Thread basics":"Creating threads, lifecycle states, daemon threads, join, sleep, wait and notify.",
+      "Synchronization":"synchronized, volatile, explicit locks, and problems like deadlock and starvation.",
+      "Java Memory Model":"Rules for visibility and ordering between threads: happens-before and atomicity.",
+      "Executors":"Thread pools and task scheduling: ExecutorService, ScheduledExecutor, ForkJoinPool.",
+      "Futures":"Async results: Callable, Future and CompletableFuture chains.",
+      "Utilities":"Coordination tools: CountDownLatch, CyclicBarrier, Semaphore, atomics, ThreadLocal."
+    },
+    j8: {
+      "Java 8":"Lambdas, functional interfaces, streams, Optional, the Date Time API and default methods.",
+      "Java 9 to 11":"Modules, var, factory methods like List.of and the HTTP Client.",
+      "Java 12 to 17":"Switch expressions, text blocks, records, pattern matching and sealed classes.",
+      "Java 21":"Virtual threads, record patterns and sequenced collections."
+    },
+    jvm: {
+      "Architecture":"Class loaders, runtime data areas and the execution engine (interpreter and JIT).",
+      "Memory":"Heap (young and old generation), Metaspace, thread stacks and PC register.",
+      "Garbage collection":"How unused objects are reclaimed: mark and sweep, generations, and collectors like G1 and ZGC.",
+      "Issues":"OutOfMemoryError, StackOverflowError, leaks and reference types.",
+      "Tuning":"JVM flags and profiling tools used to diagnose and improve performance."
+    },
+    exc: {
+      "Exceptions":"Throwable hierarchy, checked vs unchecked, try-catch-finally, try-with-resources, custom exceptions.",
+      "IO":"Byte and character streams, buffering, NIO and serialization.",
+      "Other APIs":"Reflection, annotations, regex and immutability."
+    },
+    db: {
+      "JDBC":"Low-level database access: drivers, Connection, PreparedStatement, ResultSet, transactions, pooling.",
+      "SQL":"Joins, indexes, normalization, ACID and isolation levels.",
+      "Hibernate and JPA":"ORM: entities, mappings, fetch types, caching, JPQL and the N plus 1 problem."
+    },
+    spring: {
+      "Core":"IoC container, dependency injection, bean scopes and lifecycle, AOP.",
+      "Spring Boot":"Auto-configuration, starters, properties, profiles and Actuator.",
+      "Web":"Spring MVC, REST controllers, validation, exception handling, filters and interceptors.",
+      "Data":"Spring Data JPA repositories and declarative transactions.",
+      "Security":"Authentication, authorization, JWT and OAuth2.",
+      "Microservices":"API gateway, service discovery, circuit breaker and messaging with Kafka."
+    },
+    design: {
+      "Design patterns":"Reusable solutions: creational (Singleton, Factory, Builder), structural, behavioral.",
+      "Principles":"SOLID, DRY, KISS and clean code habits.",
+      "Testing":"JUnit, Mockito, TDD and integration tests.",
+      "Tools":"Maven, Gradle, Git, Docker and CI/CD.",
+      "DSA practice":"Arrays, strings, linked lists, trees, graphs, sorting, searching and dynamic programming."
+    }
+  };
+
+  // Click examples: X[label] = { t: explanation, c: sample code }
+  const X = {
+    "String pool": {t:"String literals are cached in a pool, so identical literals share one object. new String() always creates a separate object.", c:`String a = "java";
+String b = "java";
+String c = new String("java");
+System.out.println(a == b);      // true, same pooled object
+System.out.println(a == c);      // false, different object
+System.out.println(a.equals(c)); // true, same content`},
+    "equals vs ==": {t:"== compares references (or primitive values). equals() compares content when a class overrides it. Small Integer values are cached, which surprises people.", c:`Integer x = 127, y = 127;
+System.out.println(x == y);      // true, cached
+Integer p = 128, q = 128;
+System.out.println(p == q);      // false, different objects
+System.out.println(p.equals(q)); // true`},
+    "static": {t:"Belongs to the class, not an instance, so all objects share it. Static methods cannot use this.", c:`class Counter {
+    static int count = 0;
+    Counter() { count++; }
+    static int total() { return count; }
+}
+new Counter(); new Counter();
+System.out.println(Counter.total()); // 2`},
+    "final": {t:"A final variable cannot be reassigned, a final method cannot be overridden, a final class cannot be extended.", c:`final int MAX = 10;
+// MAX = 20;  // compile error
+final List<String> list = new ArrayList<>();
+list.add("ok"); // allowed: the reference is final, not the object`},
+    "Overloading": {t:"Same method name with different parameters. The compiler picks the version at compile time.", c:`int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+int add(int a, int b, int c) { return a + b + c; }`},
+    "Polymorphism": {t:"With overriding, the method of the actual object runs, decided at runtime.", c:`class Animal { void speak() { System.out.println("..."); } }
+class Dog extends Animal {
+    @Override void speak() { System.out.println("Woof"); }
+}
+Animal a = new Dog();
+a.speak(); // Woof`},
+    "Interface": {t:"A contract a class must implement. Supports default and static methods, and a class can implement many interfaces.", c:`interface Shape {
+    double area();
+    default String describe() { return "Area: " + area(); }
+}
+class Square implements Shape {
+    public double area() { return 4; }
+}`},
+    "Abstract class": {t:"Partial implementation that can hold state. It cannot be instantiated, and a class extends only one.", c:`abstract class Vehicle {
+    abstract void drive();
+    void stop() { System.out.println("Stopped"); }
+}
+class Car extends Vehicle {
+    void drive() { System.out.println("Driving"); }
+}`},
+    "hashCode": {t:"Equal objects must return the same hashCode, so override equals and hashCode together. HashMap and HashSet depend on it.", c:`class Point {
+    final int x, y;
+    Point(int x, int y) { this.x = x; this.y = y; }
+    @Override public boolean equals(Object o) {
+        return o instanceof Point p && x == p.x && y == p.y;
+    }
+    @Override public int hashCode() { return Objects.hash(x, y); }
+}`},
+    "ArrayList": {t:"Resizable array. Get by index is O(1); inserting or removing in the middle is O(n).", c:`List<String> names = new ArrayList<>();
+names.add("Asha");
+names.add("Ravi");
+System.out.println(names.get(1)); // Ravi
+names.remove("Asha");`},
+    "HashMap": {t:"Stores entries in buckets by hash. Collisions are chained and become trees when a bucket grows large. O(1) on average.", c:`Map<String, Integer> stock = new HashMap<>();
+stock.put("apple", 5);
+stock.merge("apple", 3, Integer::sum);
+System.out.println(stock.get("apple"));            // 8
+System.out.println(stock.getOrDefault("kiwi", 0)); // 0`},
+    "TreeSet": {t:"Sorted set backed by a red-black tree. Operations are O(log n) and elements must be comparable.", c:`Set<Integer> s = new TreeSet<>(List.of(5, 1, 3));
+System.out.println(s); // [1, 3, 5]`},
+    "Comparator": {t:"Defines a custom ordering without changing the class. Chain rules with thenComparing.", c:`List<String> words = new ArrayList<>(List.of("pear", "fig", "banana"));
+words.sort(Comparator.comparing(String::length)
+                     .thenComparing(Comparator.naturalOrder()));
+System.out.println(words); // [fig, pear, banana]`},
+    "Thread vs Runnable": {t:"Runnable is the task, Thread is the worker. Prefer passing a Runnable. start() creates a new thread; run() just calls the method.", c:`Runnable task = () -> System.out.println(Thread.currentThread().getName());
+Thread t = new Thread(task, "worker-1");
+t.start(); // runs on a new thread
+// t.run() would run on the caller thread`},
+    "synchronized": {t:"Only one thread at a time can hold an object's lock, giving both mutual exclusion and visibility.", c:`class Counter {
+    private int n;
+    synchronized void inc() { n++; }
+    synchronized int get() { return n; }
+}`},
+    "volatile": {t:"Guarantees that writes are visible to other threads. It does not make compound operations like n++ atomic.", c:`class Worker {
+    private volatile boolean running = true;
+    void stop() { running = false; }
+    void loop() { while (running) { /* work */ } }
+}`},
+    "Deadlock": {t:"Two threads each hold a lock the other needs and wait forever. Avoid it by always acquiring locks in the same order.", c:`// Thread 1: locks a, then waits for b
+// Thread 2: locks b, then waits for a  -> both wait forever
+// Fix: every thread takes a first, then b
+synchronized (a) {
+    synchronized (b) { /* work */ }
+}`},
+    "ExecutorService": {t:"Reuses a pool of threads for submitted tasks instead of creating a thread per task.", c:`ExecutorService pool = Executors.newFixedThreadPool(4);
+Future<Integer> f = pool.submit(() -> 6 * 7);
+System.out.println(f.get()); // 42
+pool.shutdown();`},
+    "CompletableFuture": {t:"Chains asynchronous steps without blocking, with methods for combining results and handling errors.", c:`CompletableFuture.supplyAsync(() -> "data")
+    .thenApply(String::toUpperCase)
+    .thenAccept(System.out::println) // DATA
+    .join();`},
+    "Lambdas": {t:"Short anonymous functions that implement a functional interface (one abstract method).", c:`Runnable r = () -> System.out.println("Hi");
+Function<Integer, Integer> square = x -> x * x;
+System.out.println(square.apply(5)); // 25`},
+    "Streams": {t:"Declarative pipelines: source, intermediate operations (lazy), then one terminal operation.", c:`List<Integer> nums = List.of(1, 2, 3, 4, 5, 6);
+int sum = nums.stream()
+    .filter(n -> n % 2 == 0)
+    .mapToInt(n -> n * n)
+    .sum();
+System.out.println(sum); // 56`},
+    "Optional": {t:"A container that may or may not hold a value, so callers handle absence instead of risking NullPointerException.", c:`Optional<String> name = Optional.ofNullable(findUser());
+String shown = name.map(String::trim).orElse("guest");`},
+    "Records": {t:"Compact immutable data classes. The compiler generates the constructor, accessors, equals, hashCode and toString.", c:`record Point(int x, int y) {}
+Point p = new Point(1, 2);
+System.out.println(p.x() + " " + p); // 1 Point[x=1, y=2]`},
+    "try-with-resources": {t:"Closes any AutoCloseable resource automatically, even when an exception is thrown.", c:`try (BufferedReader br = new BufferedReader(new FileReader("a.txt"))) {
+    System.out.println(br.readLine());
+} catch (IOException e) {
+    e.printStackTrace();
+} // br is closed here`},
+    "Singleton": {t:"Guarantees one instance of a class. An eagerly created static field is simple and thread-safe.", c:`public class Config {
+    private static final Config INSTANCE = new Config();
+    private Config() {}
+    public static Config get() { return INSTANCE; }
+}`},
+    "Dependency injection": {t:"Spring supplies a class's dependencies instead of the class creating them. Constructor injection is preferred.", c:`@Service
+class OrderService {
+    private final PaymentClient payments;
+    OrderService(PaymentClient payments) { // injected by Spring
+        this.payments = payments;
+    }
+}`},
+    "PreparedStatement": {t:"Precompiled SQL with placeholders. It prevents SQL injection and is reusable.", c:`String sql = "SELECT name FROM users WHERE id = ?";
+try (PreparedStatement ps = con.prepareStatement(sql)) {
+    ps.setInt(1, 42);
+    ResultSet rs = ps.executeQuery();
+    if (rs.next()) System.out.println(rs.getString("name"));
+}`},
+    "Garbage collection": {t:"Objects with no reachable references are reclaimed automatically. System.gc() is only a hint.", c:`Object o = new Object(); // allocated on the heap
+o = null;                // now unreachable, eligible for GC
+System.gc();             // request only; the JVM decides`}
+  };
+  X.equals = X.hashCode; X.Record = X.Records;
+
+  // Deeper detail: Y[label] = { w: real-world example, n: step-by-step notes }
+  const Y = {
+    "String pool": {w:"Like one shared office printer instead of one per employee. The pool saves memory when thousands of identical strings, such as country codes, appear in an app.", n:["The first two literals point to the same pooled object, so == is true.","new String forces a fresh heap object and skips the pool.","Compare content with equals; use == only to test identity."]},
+    "equals vs ==": {w:"Two bank accounts can hold the same balance (equal) yet still be different accounts (not identical). Compare passwords with equals, never ==.", n:["127 is cached by Java (range -128 to 127), so == is true.","128 is outside the cache, so two separate objects exist.","equals compares the numbers themselves, the safe choice."]},
+    "static": {w:"A website visitor counter: every request creates a new object, but the total is shared by all, so it lives in a static field.", n:["count belongs to the class, so only one copy exists.","Each constructor call increments the shared value.","total() is called as Counter.total(), with no object needed."]},
+    "final": {w:"A bank account number is fixed once issued, but the balance inside can change. A final reference behaves the same way.", n:["MAX cannot be reassigned after its first assignment.","The list variable is final, yet its contents can still change.","For truly unchangeable data use List.of() or an immutable class."]},
+    "Overloading": {w:"A pay() action that accepts card, UPI or cash: same action, different inputs.", n:["Each add has a different parameter list.","The compiler picks one from the argument types at compile time.","Changing only the return type is not overloading and will not compile."]},
+    "Polymorphism": {w:"A delivery app calls deliver() on every order. A bike, van or drone each delivers differently, and the app code never changes.", n:["Dog overrides speak, and @Override makes the compiler check the signature.","The variable type is Animal, but the object is a Dog.","At runtime Java calls Dog's version, so it prints Woof."]},
+    "Interface": {w:"A USB port: any device that meets the contract works. Payment providers like Razorpay and Stripe can both implement one PaymentGateway interface.", n:["area() is the contract every Shape must fulfil.","describe() is a default method every implementer gets for free.","Square supplies area() and inherits describe() automatically."]},
+    "Abstract class": {w:"A template for employee roles: all employees take leave the same way (shared code) but calculate pay differently (abstract).", n:["stop() is shared behaviour inherited as-is.","drive() has no body, so every subclass must supply it.","new Vehicle() is not allowed; only subclasses like Car are created."]},
+    "hashCode": {w:"A library: the hash picks the shelf, then equals confirms the exact book. If equal books landed on different shelves you would never find them. Customer objects used as map keys need both.", n:["equals defines sameness: same x and same y.","hashCode uses the same fields, so equal points get equal hashes.","Skipping hashCode makes HashMap and HashSet miss duplicates."]},
+    "ArrayList": {w:"An online shopping cart: items are added at the end and you read item number 2 directly.", n:["add appends and grows the internal array when it is full.","get(1) jumps straight to the index, so it is fast.","remove shifts later items left, which costs O(n)."]},
+    "HashMap": {w:"A phone contact list: look up a name and get the number instantly. Stock counts by product code work the same way.", n:["put stores a key with its value.","merge adds 3 to the existing 5 using Integer::sum.","getOrDefault avoids null when the key is missing."]},
+    "TreeSet": {w:"A leaderboard of unique scores that must always display in order, such as student marks.", n:["The set is built from an unsorted list.","Each element is placed in its sorted position on insert.","Duplicates are ignored automatically."]},
+    "Comparator": {w:"Sorting products on a shop site by price, then by name when prices tie. Each option is a different Comparator over the same class.", n:["comparing(String::length) is the first sort key.","thenComparing breaks ties alphabetically.","sort applies the rule to the list in place."]},
+    "Thread vs Runnable": {w:"A restaurant: the order is the Runnable and the cook is the Thread. A new cook lets you keep taking orders, like sending an email in the background.", n:["The lambda describes the work to do.","new Thread assigns it to a worker named worker-1.","start() runs it concurrently; run() would block the caller."]},
+    "synchronized": {w:"A single ATM cabin: one person at a time, so two withdrawals cannot corrupt the balance.", n:["inc() takes the object's lock, so one thread runs it at a time.","Without it, two threads could both read 5 and both write 6.","get() is synchronized so readers see the latest value."]},
+    "volatile": {w:"A stop flag on a traffic controller: when the operator sets it, every watching thread must notice immediately.", n:["running is written by one thread and read by another.","volatile forces reads to see the latest write.","It does not protect n++; use synchronized or AtomicInteger for that."]},
+    "Deadlock": {w:"Two cars meet on a one-lane bridge, each waiting for the other to reverse. In banking code it happens when two transfers lock accounts in opposite order.", n:["Each thread holds one lock and waits for the other.","Nobody can proceed, so the program hangs.","Fix: agree a fixed order, such as the lower account id first."]},
+    "ExecutorService": {w:"A call center with 4 agents: calls queue and free agents pick them up, instead of hiring a new agent per call.", n:["newFixedThreadPool(4) creates 4 reusable workers.","submit queues the task and returns a Future.","get waits for the result; shutdown stops accepting new tasks."]},
+    "CompletableFuture": {w:"Booking a cab: you request, keep using the app, and the driver appears when ready. Fetch a price, convert currency, then show it, all without freezing the screen.", n:["supplyAsync runs the first step on another thread.","thenApply transforms the result without blocking.","thenAccept consumes it; join waits for the whole chain."]},
+    "Lambdas": {w:"A button's click action: instead of writing a class, you pass one line of behaviour such as sort by price.", n:["() -> ... implements Runnable's single method.","x -> x * x implements Function: takes an Integer, returns one.","apply(5) runs it and returns 25."]},
+    "Streams": {w:"A sales report: keep paid orders, take amounts, add them up, like an assembly line over database rows.", n:["stream() starts the pipeline from the list.","filter keeps even numbers, mapToInt squares them.","sum() is the terminal step that triggers the work: 4 + 16 + 36 = 56."]},
+    "Optional": {w:"Looking up a user by email: they may not exist. Optional makes the caller decide what to show instead of crashing with null.", n:["ofNullable wraps a value that might be null.","map trims the value only if one is present.","orElse supplies a default, here guest."]},
+    "Records": {w:"An API response like a product with id and price: you only carry data and want no boilerplate.", n:["One line declares the fields, constructor and accessors.","Accessors are x() and y(), not getX().","toString and equals are generated; fields cannot change."]},
+    "try-with-resources": {w:"Opening a file, DB connection or socket: leaving it open leaks resources like a tap left running. This closes it for you.", n:["The resource is declared in parentheses after try.","It is used inside the block.","Java calls close() at the end, even if an exception occurs."]},
+    "Singleton": {w:"An app's configuration or logger: everyone should read the same object, not create their own copy.", n:["INSTANCE is created once when the class loads.","The private constructor blocks new Config().","get() returns the same instance every time."]},
+    "Dependency injection": {w:"A restaurant manager does not grow vegetables; suppliers deliver them. OrderService does not build PaymentClient, so tests can swap in a fake.", n:["@Service tells Spring to manage this class.","The constructor lists what OrderService needs.","Spring finds a PaymentClient bean and passes it in."]},
+    "PreparedStatement": {w:"A login form: a user typing ' OR 1=1 -- as a name could break a string-built query. Placeholders treat input as data, never as SQL.", n:["? marks where a value goes.","setInt fills the placeholder safely.","executeQuery runs it; try-with-resources closes the statement."]},
+    "Garbage collection": {w:"An office cleaning crew: when nobody uses a desk anymore it is cleared automatically. Developers do not free memory by hand.", n:["new allocates the object on the heap.","Setting o to null removes the last reference.","The GC reclaims it later; System.gc() cannot force it."]}
+  };
+  Y.equals = Y.hashCode; Y.Record = Y.Records;
+
+  const tip = document.getElementById('tip');
+  const find = e => {
+    const n = e.target.closest && e.target.closest('.node, .mindmap-node');
+    if (!n) return null;
+    const label = n.textContent.replace(/\s+/g, ' ').trim();
+    const id = (n.closest('details') || {}).id;
+    const text = (D[id] && D[id][label]) || D.overview[label] || (X[label] && X[label].t);
+    return text ? { label, text: text + (X[label] ? ' Click for an example.' : '') } : null;
+  };
+  const place = e => {
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(e.clientX + 14, innerWidth - w - 8)) + 'px';
+    tip.style.top = (e.clientY + 18 + h > innerHeight ? e.clientY - h - 12 : e.clientY + 18) + 'px';
+  };
+  const show = e => {
+    const f = find(e);
+    if (!f) { tip.classList.remove('on'); return; }
+    tip.innerHTML = '<b></b><span></span>';
+    tip.firstChild.textContent = f.label;
+    tip.lastChild.textContent = f.text;
+    tip.classList.add('on'); place(e);
+  };
+  // Give nodes that have a click example a thick white border.
+  const mark = d => d.querySelectorAll('.node, .mindmap-node').forEach(n => {
+    if (X[n.textContent.replace(/\s+/g, ' ').trim()]) n.classList.add('has-detail');
+  });
+  document.addEventListener('mouseover', show);
+  document.addEventListener('mousemove', e => tip.classList.contains('on') && place(e));
+  document.addEventListener('mouseout', e => { if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.node, .mindmap-node')) tip.classList.remove('on'); });
+  document.addEventListener('click', e => {
+    const n = e.target.closest && e.target.closest('.node, .mindmap-node');
+    if (!n) return;
+    const label = n.textContent.replace(/\s+/g, ' ').trim(), x = X[label];
+    if (!x) { show(e); return; }
+    const box = n.closest('.box');
+    let p = box.querySelector('.ex');
+    if (!p) { p = document.createElement('div'); p.className = 'ex'; box.appendChild(p); }
+    const y = Y[label];
+    p.innerHTML = '<h3></h3><p></p><pre><code></code></pre>' + (y ? '<h4>Real-world example</h4><p class="w"></p><h4>Step by step</h4><ol></ol>' : '');
+    p.querySelector('h3').textContent = label;
+    p.querySelector('p').textContent = x.t;
+    p.querySelector('code').textContent = x.c;
+    if (y) {
+      p.querySelector('.w').textContent = y.w;
+      y.n.forEach(t => { const li = document.createElement('li'); li.textContent = t; p.querySelector('ol').appendChild(li); });
+    }
+    tip.classList.remove('on');
+    p.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
